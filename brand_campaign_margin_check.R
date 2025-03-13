@@ -125,7 +125,7 @@ group by sim.product_number, sim.gross_margin
 
 
 #------GET DATA---------------------------------------------
-kvi_data <- read_sheet("https://docs.google.com/spreadsheets/d/1vbShTVN4-f94aVZORsq5uZDKy9wOR7_nyanU0pKTa1c/edit?gid=517535627#gid=517535627",sheet = "current_KVIs")
+kvi_data <- read_sheet("https://docs.google.com/spreadsheets/d/1vbShTVN4-f94aVZORsq5uZDKy7_nyanU0pKTa1c/edit?gid=517535#gid=517535",sheet = "current_KVIs")
 brand_margin_check <-  dbFetch(dbSendQuery(conn = con, sql_margin_check))
 brand_low_margin_check <-  dbFetch(dbSendQuery(conn = con, sql_low_margin_check))
 brand_low_margin_product_check <-  dbFetch(dbSendQuery(conn = con, sql_low_margin_product_check))
@@ -150,7 +150,7 @@ brand_joined_low_margin_product_check <- brand_low_margin_product_check %>%
   left_join(brand_check_minmax, by = "product_number") %>%
   left_join(brand_check_fixed, by = "product_number", suffix = c(".minmax", ".fixed"))
 
-current_allocation <- fread("C:\\Users\\nathan.moore\\Documents\\discounting_allocation_2025-01-16.csv", select = c(1,3,13))
+current_allocation <- fread("C:\\Users\\nathan.moore\\Documents\\discounting_allocation.csv", select = c(1,3,13))
 current_allocation <- current_allocation %>%
   mutate(recommended_discount = str_replace(recommended_discount, "high_min", "low_mid")) %>%
   mutate(recommended_discount = str_replace(recommended_discount, "gen", "mid")) %>%
